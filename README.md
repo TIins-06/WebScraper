@@ -47,14 +47,39 @@ python -m playwright install chromium
 5. 点击"🔍 爬取"按钮
 6. 查看结果并导出
 
-## API 端点
+## API 接口
+
+项目提供两套 API，均可从外部程序直接调用：
+
+### 简化 API（v1）— 推荐对接使用
+
+| 端点 | 方法 | 说明 |
+|------|------|------|
+| `/api/v1/health` | GET | 健康检查 |
+| `/api/v1/scrape?url=&format=` | GET | 爬取网页（最简单） |
+| `/api/v1/scrape` | POST | 爬取网页（完整参数） |
+| `/api/v1/batch` | POST | 批量爬取多个 URL |
+| `/api/v1/extract` | POST | 指定类型提取 |
+| `/api/v1/export?url=&format=csv` | GET | 导出 CSV 文件 |
+| `/api/v1/hotlist?platform=weibo` | GET | 热词榜 |
+| `/api/v1/github/trending?since=daily` | GET | GitHub 热榜 |
+
+### 完整 API — 支持全部高级选项
 
 | 端点 | 方法 | 说明 |
 |------|------|------|
 | `/api/health` | GET | 健康检查 |
-| `/api/scrape` | POST | 单页面爬取 |
-| `/api/scrape/batch` | POST | 批量爬取 |
-| `/api/proxy` | POST | CORS代理 |
+| `/api/scrape` | POST | 完整爬取（代理/交互/WS捕获等） |
+| `/api/scrape/batch` | POST | 完整批量爬取 |
+| `/api/scrape/cancel` | POST | 取消运行中的任务 |
+| `/api/scrape/status/{task_id}` | GET | 查询任务状态 |
+| `/api/hotlist` | GET | 热词榜 |
+| `/api/github/trending` | GET | GitHub Trending |
+| `/api/proxy` | POST | CORS 代理 |
+
+📖 **详细对接教程请查看 [API.md](API.md)**
+
+Swagger 交互文档：启动服务后访问 `http://localhost:8765/docs`
 
 ## 技术栈
 
